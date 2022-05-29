@@ -1,0 +1,30 @@
+.App {
+    background-color: #fff;
+    color: #000;
+
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+
+    /* box-sizing: border-box; */
+    /* height: 100vh; */
+    
+    
+    margin: 0 auto;
+    padding: 0 14px;
+
+}
+
+.transition {
+    transition: .3s linear;
+}
+
+.opacity:hover {
+    opacity: .6;
+    cursor: pointer;
+}

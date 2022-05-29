@@ -1,0 +1,43 @@
+.nav-tab {
+    display: flex;
+    align-items: center;
+
+}
+
+.nav-tab__button {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 133%;
+    color: #000000;
+    text-align: center;
+    text-decoration: none;
+}
+
+.nav-tab__button_regist {
+    margin-right: 30px;
+}
+
+.nav-tab__button_login {
+    width: 76px;
+    height: 32px;
+    background-color: #2BE080;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width: 420px) {
+    .nav-tab__button {
+        font-size: 10px;
+    }
+
+    .nav-tab__button_regist {
+        margin-right: 30px;
+    }
+
+    .nav-tab__button_login {
+        width: 54px;
+        height: 26px;
+    }
+}
