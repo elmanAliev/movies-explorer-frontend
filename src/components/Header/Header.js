@@ -1,13 +1,12 @@
 import './Header.css';
 import { Logo } from '../../components/Logo/Logo';
-import { NavTab } from '../Landing/NavTab/NavTab';
 
-export const Header = () => {
+export const Header = ({children}) => {
 
     return (
         <header className='header'>
             <Logo />
-            <NavTab />
+            {children}
         </header>
     );
 }
