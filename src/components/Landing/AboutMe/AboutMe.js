@@ -1,7 +1,6 @@
 import './AboutMe.css';
 import photo from '../../../images/photo.jpg';
 import { SectionHeader } from '../SectionHeader/SectionHeader';
-import { SectionTitle } from '../SectionTitle/SectionTitle';
 import { Portfolio } from '../Portfolio/Portfolio';
 
 export const AboutMe = () => {
@@ -11,7 +10,7 @@ export const AboutMe = () => {
             <SectionHeader>Студент</SectionHeader>
             <div className='about-me__block'>
                 <div className='about-me__info'>
-                    <SectionTitle>Эльман</SectionTitle>
+                    <h3 className='about-me__title'>Эльман</h3>
                     <p className='about-me__subtitle'>Фронтенд-разработчик, 31 год</p>
                     <p className='about-me__description'>Я родился в Дербенте. Закончил приборостроительный факультет ЮУрГУ в Челябинске. Я люблю играть в футбол, а ещё увлекаюсь шахматами. Недавно начал кодить.</p>
                     <ul className='about-me__list'>
