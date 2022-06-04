@@ -6,7 +6,7 @@ export const SearchForm = () => {
     return (
         <div className="search">
             <form name='search-form' className='search__form'>
-                <fieldset className="search__input-box">
+                <div className="search__input-box">
                     <input
                         type="text"
                         name="search-input"
@@ -15,9 +15,9 @@ export const SearchForm = () => {
                     />
 
                     <button className="search__button" />
-                </fieldset>
+                </div>
 
-                <fieldset className="search__checkbox">
+                <div className="search__checkbox">
 
 
                     
@@ -26,7 +26,7 @@ export const SearchForm = () => {
                         Короткометражки
                     </p>
                     <FilterCheckbox />
-                </fieldset>
+                </div>
 
             </form>
             <div className="search__line" />

@@ -10,6 +10,7 @@
     background-color: rgba(0, 0, 0, .3);
     visibility: hidden;
     opacity: 0;
+    z-index: 100;
 }
 
 .popup__overlay {
@@ -19,6 +20,7 @@
     width: 100%;
     height: 100%;
     cursor: pointer;
+    z-index: 100;
 }
 
 .popup__close {

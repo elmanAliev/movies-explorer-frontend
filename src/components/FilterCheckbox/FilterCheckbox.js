@@ -3,8 +3,12 @@ import './FilterCheckbox.css';
 export const FilterCheckbox = () => {
 
     return (
-        <div className="filter-checkbox">
-            
-        </div>
+        <label className="checkbox transition opacity">
+            <input
+                type="checkbox"
+                className="checkbox__input"
+            />
+            <span className="checkbox__slider"/>
+        </label>
     );
 }

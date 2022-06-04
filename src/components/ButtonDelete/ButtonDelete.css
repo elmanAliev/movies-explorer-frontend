@@ -1,0 +1,11 @@
+.batton-delete {
+    display: block;
+    width: 24px;
+    height: 24px;
+    background-image: url(../../images/delete.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    background-color: transparent;
+    border: 0;
+}

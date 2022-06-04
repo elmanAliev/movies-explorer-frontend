@@ -1,17 +1,15 @@
-import { ButtonMore } from '../ButtonMore/ButtonMore';
 import { MoviesCardList } from '../MoviesCardList/MoviesCardList';
 import { SearchForm } from '../SearchForm/SearchForm';
-import './Movies.css';
+import './MoviesSaved.css';
 
-export const Movies = () => {
+export const MoviesSaved = () => {
 
     return (
-        <section className="movies">
+        <section className="movies-saved">
             <SearchForm />
             <MoviesCardList
-                savedFilms={false}
+                savedFilms={true}
             />
-            <ButtonMore />
         </section>
     );
 }
