@@ -1,0 +1,45 @@
+.input {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.input__label {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #A0A0A0;
+    
+}
+
+.input__item {
+    margin: 0 0 24px;
+    padding: 5px 0 10px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+    border: 0;
+    border-bottom: 1px solid #E8E8E8;
+    
+}
+
+.input__item:focus {
+    outline: none;
+    border-bottom: 1px solid #3456F3;
+}
+
+.input__error {
+    display: none;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #FF3055;
+    position: absolute;
+    left: 0;
+    top: 48px;
+}
+
+.input__error_active {
+    display: block;
+}

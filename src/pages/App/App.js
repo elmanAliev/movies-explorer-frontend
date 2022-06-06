@@ -6,7 +6,7 @@ import { MoviePage } from '../MoviePage';
 import { SavedMoviePage } from '../SavedMoviePage';
 import { ProfilePage } from '../ProfilePage';
 import { Login } from '../Login/Login';
-import { Registration } from '../Registration/Registration';
+import { Register } from '../Register/Register';
 import { NotFoundPage } from '../NotFoundPage/NotFoundPage';
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
         <Route path="/saved-movies" element={<SavedMoviePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/signin" element={<Login />} />
-        <Route path="/signup" element={<Registration />} />
+        <Route path="/signup" element={<Register />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>

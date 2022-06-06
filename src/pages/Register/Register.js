@@ -1,11 +1,11 @@
-import './Login.css';
+import './Register.css';
 import { Logo } from '../../components/Logo/Logo';
 import { Form } from '../../components/Form/Form';
 import { Input } from '../../components/Input/Input';
 import { Submit } from '../../components/Submit/Submit';
 
 
-export const Login = () => {
+export const Register = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -19,8 +19,16 @@ export const Login = () => {
             </header>
             <Form
                 name='register'
-                title='Рады видеть!'
+                title='Добро пожаловать!'
             >
+                <Input
+                    type="text"
+                    id="name" name="name"
+                    maxLength="30" minLength="2"
+                    placeholder="Имя" required
+                >
+                    Имя
+                </Input>
                 <Input
                     type="text"
                     name="email"
@@ -39,10 +47,10 @@ export const Login = () => {
                 </Input>
             </Form>
             <Submit
-                name={'Войти'}
+                name={'Зарегистрироваться'}
                 linkName={'/signin'}
-                linkText={'Регистрация'}
-                text='Ещё не зарегистрированы?'
+                linkText={'Войти'}
+                text='Уже зарегистрированы?'
                 onSubmit={handleSubmit}
             />
         </div>
