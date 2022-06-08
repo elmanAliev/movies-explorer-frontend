@@ -10,6 +10,11 @@
     line-height: 17px;
 }
 
+.submit__button:disabled {
+    cursor: auto;
+    opacity: 0.6;
+}  
+
 .submit__wrapper {
     margin-top: 16px;
     display: flex;
