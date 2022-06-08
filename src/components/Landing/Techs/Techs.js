@@ -5,7 +5,7 @@ import { SectionTitle } from '../SectionTitle/SectionTitle';
 export const Techs = () => {
 
     return (
-        <section className='techs'>
+        <section id='techs' className='techs'>
             <div className='techs__wrapper'>
                 <SectionHeader>Технологии</SectionHeader>
                 <div className='techs__block'>

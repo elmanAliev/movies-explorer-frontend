@@ -5,9 +5,9 @@ export const NavPromo = () => {
 
     return (
         <nav className="nav-promo">
-            <button className="nav-promo__button transition opacity">О проекте</button>
-            <button className="nav-promo__button transition opacity">Технологии</button>
-            <button className="nav-promo__button transition opacity">Студент</button>
+            <a href='#about-project' className="nav-promo__button transition opacity">О проекте</a>
+            <a href='#techs' className="nav-promo__button transition opacity">Технологии</a>
+            <a href='#about-me' className="nav-promo__button transition opacity">Студент</a>
         </nav>
     );
 }

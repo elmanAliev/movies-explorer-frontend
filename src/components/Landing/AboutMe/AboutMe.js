@@ -6,7 +6,7 @@ import { Portfolio } from '../Portfolio/Portfolio';
 export const AboutMe = () => {
 
     return (
-        <section className='about-me'>
+        <section id='about-me' className='about-me'>
             <SectionHeader>Студент</SectionHeader>
             <div className='about-me__block'>
                 <div className='about-me__info'>

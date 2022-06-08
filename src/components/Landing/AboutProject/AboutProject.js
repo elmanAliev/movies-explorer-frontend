@@ -4,7 +4,7 @@ import { SectionHeader } from '../SectionHeader/SectionHeader';
 export const AboutProject = () => {
 
     return (
-        <section className='about-project'>
+        <section id="about-project" className='about-project'>
             <SectionHeader>O проекте</SectionHeader>
             <div className='about-project__wrapper'>
                 <div className='about-project__block'>
