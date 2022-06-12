@@ -7,7 +7,7 @@ export const SavedMoviePage = () => {
 
     return (
         <>
-           <Header>
+            <Header>
                 <Navigation />
             </Header>
             <MoviesSaved />

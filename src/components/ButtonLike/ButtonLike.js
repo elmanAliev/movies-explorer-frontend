@@ -1,8 +1,10 @@
 import './ButtonLike.css';
 
-export const ButtonLike = () => {
+export const ButtonLike = ({ handleClick, isFavorite }) => {
+
+    const buttonClassName = isFavorite ? 'button-like button-like_active transition opacity' :'button-like transition opacity'
 
     return (
-        <button className='button-like transition opacity' type='button'></button>
+        <button onClick={handleClick} className={buttonClassName} type='button'></button>
     );
 }

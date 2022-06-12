@@ -1,8 +1,7 @@
 import './MoviesCardList.css';
 import { cards } from '../../utils/cardsArray'
 import { MoviesCard } from '../MoviesCard/MoviesCard';
-import { ButtonLike } from '../ButtonLike/ButtonLike';
-import { ButtonDelete } from '../ButtonDelete/ButtonDelete';
+
 
 export const MoviesCardList = ({ savedFilms }) => {
 
@@ -13,12 +12,8 @@ export const MoviesCardList = ({ savedFilms }) => {
                 name={card.name}
                 duration={card.duration}
                 key={i}
-            >
-                {savedFilms
-                    ? <ButtonDelete />
-                    : <ButtonLike />
-                } 
-            </MoviesCard>
+                savedFilms={savedFilms}
+            />
         })
     }
 
