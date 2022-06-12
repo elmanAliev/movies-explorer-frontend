@@ -56,7 +56,7 @@ export const Login = () => {
             </Form>
             <Submit
                 name={'Войти'}
-                linkName={'/signin'}
+                linkName={'/signup'}
                 linkText={'Регистрация'}
                 text='Ещё не зарегистрированы?'
                 onSubmit={handleSubmit}
