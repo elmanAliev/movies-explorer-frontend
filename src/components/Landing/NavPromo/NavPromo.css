@@ -1,0 +1,32 @@
+.nav-promo {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-promo__button {
+    width: 96px;
+    height: 36px;
+    border-radius: 10px;
+    background-color: #E8E8E8;
+    color: #FFFFFF;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 133%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 420px) {
+    .nav-promo {
+        gap: 6px;
+    }
+
+    .nav-promo__button {
+        width: 82px;
+        height: 27px;
+        font-size: 10px;
+        line-height: 16px;
+    }
+}

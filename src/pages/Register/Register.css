@@ -1,0 +1,30 @@
+.register {
+    max-width: 456px;
+    margin: 0 auto;
+    padding: 70px 30px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.register__header {
+    margin-bottom: 40px;
+}
+
+@media screen and (max-width: 786px) {
+    .register {
+        padding: 232px 30px;
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .register {
+        padding: 56px 30px 30px;
+        height: 100%;
+    }
+    .register__header {
+        margin: 0 auto 50px;
+    }
+}
