@@ -1,25 +1,29 @@
 import './MoviesCardList.css';
-import { cards } from '../../utils/cardsArray'
 import { MoviesCard } from '../MoviesCard/MoviesCard';
 
 
-export const MoviesCardList = ({ savedFilms }) => {
+export const MoviesCardList = ({ savedFilms, moviesList, errorMessage }) => {
 
-    const getMovies = (movies) => {
-        return movies.map((card, i) => {
-            return <MoviesCard
-                img={card.img}
-                name={card.name}
-                duration={card.duration}
-                key={i}
-                savedFilms={savedFilms}
-            />
-        })
+    const getMovies = (moviesList) => {
+        if (moviesList.length > 0) {
+            console.log(moviesList)
+            return moviesList.map((movie) => {
+                return <MoviesCard
+                    movie={movie}
+                    key={movie.movieId}
+                    savedFilms={savedFilms}
+                />
+            })
+        }
+
+        return (
+            <p className="movies-card-list__err">{errorMessage}</p>
+        )
     }
 
     return (
         <section className="movies-card-list">
-            {getMovies(cards)}
+            {getMovies(moviesList)}
         </section>
     );
 }

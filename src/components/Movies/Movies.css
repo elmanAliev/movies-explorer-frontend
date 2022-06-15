@@ -4,6 +4,11 @@
     padding: 0 44px;
 }
 
+.movies__loader {
+    display: flex;
+    justify-content: center;
+}
+
 @media screen and (max-width: 768px) {
     .movies {
         max-width: 708px;
