@@ -5,7 +5,7 @@ const visibleMoviesNumbers = {
     480: { total: 5, add: 2 },
 };
 
-export const getVisualProps = (width) => {
+export const getScreenSettings = (width) => {
     let point = 0;
     if (width > 1200) {
         point = 1280;

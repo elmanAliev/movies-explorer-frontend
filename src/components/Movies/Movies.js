@@ -6,7 +6,7 @@ import { readMovies, filterMovies } from '../../utils/MoviesSearch'
 import { useState, useEffect } from 'react';
 import Loader from '../Loader/Loader';
 import { useWindowDimensions } from '../../hooks/useWindowDimensions';
-import { getVisualProps } from '../../utils/ScreenSettings'
+import { getScreenSettings } from '../../utils/ScreenSettings'
 
 export const Movies = () => {
 
@@ -23,7 +23,27 @@ export const Movies = () => {
 
 
     useEffect(() => {
-        setScreenSettings(getVisualProps(width));
+        const switchStorage = JSON.parse(localStorage.getItem('isSwitchOn'));
+        const moviesStorage = JSON.parse(localStorage.getItem('filteredMovies'));
+        if (switchStorage) setIsSwitchOn(switchStorage);
+        if (moviesStorage) setMoviesList(moviesStorage);
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('isSwitchOn', JSON.stringify(isSwitchOn));
+
+        if (isSwitchOn) {
+            const filterMovies = moviesList.filter((movie) => movie.duration > 90);
+
+            setShowedMovies(filterMovies)
+        } else {
+            setShowedMovies(moviesList)
+        }
+
+    }, [isSwitchOn]);
+
+    useEffect(() => {
+        setScreenSettings(getScreenSettings(width));
     }, [width]);
 
     useEffect(() => {
@@ -41,13 +61,15 @@ export const Movies = () => {
     }, [visibleMoviesNumber, moviesList]);
 
 
-
     const searchMain = async (searchString) => {
 
-        setMoviesList([])
+        setMoviesList([]);
+        setIsSwitchOn(false);
+        if (localStorage.getItem('filteredMovies')) localStorage.removeItem('filteredMovies');
+        if (localStorage.getItem('searchString')) localStorage.removeItem('searchString');
 
         try {
-            setIsMoviesLoading(true)
+            setIsMoviesLoading(true);
 
             // получаем фильмы с сервиса beatfilm-movies
             const movies = await readMovies();
@@ -58,7 +80,6 @@ export const Movies = () => {
 
             localStorage.setItem('searchString', JSON.stringify(searchString));
             localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
-            localStorage.setItem('isSwitchOn', JSON.stringify(isSwitchOn));
 
         } catch (err) {
             setErrorMessage(err)
@@ -67,13 +88,9 @@ export const Movies = () => {
         }
     }
 
-    const handleSearchSubmit = (searchString) => {
-        searchMain(searchString)
-    }
+    const handleSearchSubmit = (searchString) => searchMain(searchString);
 
-    const handleSwitchChange = () => {
-        setIsSwitchOn(!isSwitchOn);
-    }
+    const handleSwitchChange = () => setIsSwitchOn((prev) => !prev);
 
     const handleMoreClick = () => {
         let newValue = visibleMoviesNumber + screenSettings.add;
@@ -85,6 +102,7 @@ export const Movies = () => {
         }
         setVisibleMoviesNumber(newValue);
     }
+
 
     return (
         <section className="movies">
@@ -102,7 +120,8 @@ export const Movies = () => {
                 errorMessage={errorMessage}
             />
             {isMoreVisible &&
-                <ButtonMore onClick={handleMoreClick} />}
+                <ButtonMore onClick={handleMoreClick} />
+            }
         </section>
     );
 }

@@ -6,7 +6,6 @@ export const MoviesCardList = ({ savedFilms, moviesList, errorMessage }) => {
 
     const getMovies = (moviesList) => {
         if (moviesList.length > 0) {
-            console.log(moviesList)
             return moviesList.map((movie) => {
                 return <MoviesCard
                     movie={movie}

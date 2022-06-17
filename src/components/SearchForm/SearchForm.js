@@ -1,21 +1,28 @@
 import { FilterCheckbox } from '../FilterCheckbox/FilterCheckbox';
 import './SearchForm.css';
-import { useInput } from '../../hooks/useInput';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export const SearchForm = ({ onSubmit, isSwitchOn, onSwitchChange }) => {
 
     const [error, setError] = useState(false)
-    const search = useInput('', { isEmpty: true });
-    const errorClassName = (search.isError && error) ? 'search__error search__error_active' : 'search__error';
+    const [searchString, setSearchString] = useState('')
+    const errorClassName = error ? 'search__error search__error_active' : 'search__error';
+
+    useEffect(() => {
+        const stringStorage = JSON.parse(localStorage.getItem('searchString'));
+        if (stringStorage) {
+            console.log(stringStorage)
+            setSearchString(stringStorage);
+        }
+    }, []);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if(search.value.length < 1) {
+        if(searchString.length < 1) {
             setError(true)
         } else {
             setError(false);
-            onSubmit(search.value);
+            onSubmit(searchString);
         }
         
     }
@@ -30,9 +37,8 @@ export const SearchForm = ({ onSubmit, isSwitchOn, onSwitchChange }) => {
                         name='search-input'
                         className='search__input'
                         placeholder='Фильм'
-                        value={search.value}
-                        onChange={e => search.onChange(e)}
-                        onBlur={e => search.onBlur(e)}
+                        value={searchString}
+                        onChange={e => setSearchString(e.target.value)}
                     />
                     <button
                         className='search__button transition opacity'
