@@ -4,6 +4,7 @@ import { Form } from '../../components/Form/Form';
 import { Input } from '../../components/Input/Input';
 import { Submit } from '../../components/Submit/Submit';
 import { useInput } from '../../hooks/useInput';
+import api from '../../utils/MainApi';
 
 
 export const Register = () => {
@@ -15,6 +16,9 @@ export const Register = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log({name: name.value, email: email.value, password: password.value})
+        api.register({name: name.value, email: email.value, password: password.value})
+        .then(res=> console.log(res))
+        .catch(err=> console.log(err))
     };
 
     return (

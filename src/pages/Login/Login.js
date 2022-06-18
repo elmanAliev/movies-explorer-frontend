@@ -6,14 +6,14 @@ import { Submit } from '../../components/Submit/Submit';
 import { useInput } from '../../hooks/useInput';
 
 
-export const Login = () => {
+export const Login = ({onSubmit}) => {
 
     const email = useInput('', {isEmail: true})
     const password = useInput('', {isEmpty: true});
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log({email: email.value, password: password.value})
+        onSubmit({email: email.value, password: password.value});
     };
 
     return (
