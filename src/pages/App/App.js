@@ -15,56 +15,53 @@ import api from '../../utils/MainApi';
 function App() {
 
   const navigate = useNavigate();
-
-  const token = localStorage.getItem('token');
   const [currentUser, setCurrentUser] = useState({ isLoggedIn: false });
 
-  // console.log(currentUser)
-  // useEffect(() => {
-  //   Promise.all([api.getUserInfo(token)])
-  //     .then(([userInfoObject]) => {
-  //       setCurrentUser(prev => {
-  //         return { ...prev, ...userInfoObject.data }
-  //       })
+  const [errRegister, setErrRegister] = useState('');
+  const [errLogin, setErrLogin] = useState('');
 
-  //     })
-  //     .catch((err) => {
-  //       console.log(`Невозможно загрузить информацию с сервера ${err}`);
-  //     });
-  // }, [])
-
-  const tokenCheck = () => {
+  useEffect(() => {
     if (localStorage.getItem('token')) {
       const token = localStorage.getItem('token');
-      console.log(token)
       api.getUserInfo(token)
-        .then(([userInfoObject]) => {
+        .then((userInfoObject) => {
+          currentUser.isLoggedIn = true;
           setCurrentUser(prev => {
             return { ...prev, ...userInfoObject.data }
           })
-          console.log(userInfoObject)
         })
         .catch(err => {
-          console.log('Переданный токен некорректен.');
+          console.log(`'Переданный токен некорректен.' ${err}`);
         });
     }
-  };
+  }, [currentUser.isLoggedIn]);
 
-  useEffect(() => {
-    tokenCheck();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleLogin = ({ email, password }) => {
-    console.log('1')
+  const handleLogin = (email, password) => {
     api.authorize({ email, password })
       .then((data) => {
+        localStorage.setItem('token', data.token);
         currentUser.isLoggedIn = true;
-        navigate('/');
-
+        navigate('/movies');
+        setErrLogin('');
+      })
+      .catch((err) => {
+        console.log(err);
+        setErrLogin('Некорректные данные');
       })
   }
 
+  const handleRegister = (name, email, password) => {
+    api.register({name, email, password})
+        .then((res) => {
+          handleLogin(email, password);
+          setErrRegister('');
+        })
+        .catch((err) => {
+          console.log(err);
+          setErrRegister('Некорректные данные');
+        })
+  }
+  
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
@@ -73,8 +70,8 @@ function App() {
           <Route path="/movies" element={<MoviePage />} />
           <Route path="/saved-movies" element={<SavedMoviePage />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/signin" element={<Login onSubmit={handleLogin} />} />
-          <Route path="/signup" element={<Register />} />
+          <Route path="/signin" element={<Login onSubmit={handleLogin} error={errLogin} />} />
+          <Route path="/signup" element={<Register onSubmit={handleRegister} error={errRegister} />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>

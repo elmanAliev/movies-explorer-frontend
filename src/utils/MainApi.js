@@ -11,61 +11,31 @@ class Api {
         return Promise.reject(`Ошибка: ${res.status}`);
     }
 
-    register({name, email, password}) {
-        console.log(name, email, password)
+    register({ name, email, password }) {
         return fetch(`${this._baseUrl}/signup`, {
             method: 'POST',
             headers: this._headers,
             body: JSON.stringify({ name, email, password })
         })
-            .then((response) => {
-                try {
-                    if (response.status === 200) {
-                        return response.json();
-                    }
-                } catch (e) {
-                    return (e)
-                }
-            })
-            .then((res) => {
-                return res;
-            })
-            .catch((err) => console.log(err));
+            .then((res) => this._handleResponse(res));
     }
 
-    authorize({email, password}) {
+    authorize({ email, password }) {
         return fetch(`${this._baseUrl}/signin`, {
             method: 'POST',
             headers: this._headers,
             body: JSON.stringify({ email, password })
         })
-            .then((response) => {
-                try {
-                    if (response.status === 200) {
-                        return response.json();
-                    }
-                } catch (e) {
-                    return (e)
-                }
-            })
-            .then((data) => {
-                if (data.token) {
-                    localStorage.setItem('token', data.token);
-                    return data
-                } else {
-                    return
-                }
-            });
+            .then((res) => this._handleResponse(res));
     }
 
     getUserInfo(token) {
-        console.log(token)
         return fetch(`${this._baseUrl}/users/me`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
                 "Content-Type": "application/json",
-                "authorization": `Bearer ${token}`
+                "authorization": `Bearer ${token}`,
             }
         })
             .then((res) => this._handleResponse(res));

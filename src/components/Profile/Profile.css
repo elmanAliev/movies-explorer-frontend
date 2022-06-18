@@ -22,7 +22,7 @@
     width: 100%;
 }
 
-.profile__fieldset {
+/* .profile__fieldset {
     display: flex;
     justify-content: space-between;
 }
@@ -44,7 +44,7 @@
 
 .profile__input:focus {
     outline: none;
-}
+} */
 
 .profile__line {
     border-bottom: 1px solid #E8E8E8;

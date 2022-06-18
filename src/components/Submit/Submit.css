@@ -1,3 +1,14 @@
+.submit {
+    position: relative;
+}
+
+.submit__error {
+    color: red;
+    font-size: 12px;
+    position: absolute;
+    top: -20px;
+}
+
 .submit__button {
     width: 100%;
     border: 0;

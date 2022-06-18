@@ -11,7 +11,6 @@ export const SearchForm = ({ onSubmit, isSwitchOn, onSwitchChange }) => {
     useEffect(() => {
         const stringStorage = JSON.parse(localStorage.getItem('searchString'));
         if (stringStorage) {
-            console.log(stringStorage)
             setSearchString(stringStorage);
         }
     }, []);

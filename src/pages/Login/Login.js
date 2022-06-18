@@ -6,14 +6,14 @@ import { Submit } from '../../components/Submit/Submit';
 import { useInput } from '../../hooks/useInput';
 
 
-export const Login = ({onSubmit}) => {
+export const Login = ({onSubmit, error}) => {
 
     const email = useInput('', {isEmail: true})
     const password = useInput('', {isEmpty: true});
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        onSubmit({email: email.value, password: password.value});
+        onSubmit(email.value, password.value);
     };
 
     return (
@@ -61,6 +61,7 @@ export const Login = ({onSubmit}) => {
                 text='Ещё не зарегистрированы?'
                 onSubmit={handleSubmit}
                 isDisabled={!email.inputValid || !password.inputValid}
+                error={error}
             />
         </div>
     );

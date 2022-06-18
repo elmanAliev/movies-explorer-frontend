@@ -1,0 +1,39 @@
+.input-profile {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.input-profile__label {
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;
+}
+
+.input-profile__input {
+    text-align: right;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    border: 0;
+    padding: 0;
+}
+
+.input-profile__input:focus {
+    outline: none;
+}
+
+.input-profile__error {
+    display: none;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #FF3055;
+    position: absolute;
+    right: 0;
+    top: 12px;
+}
+
+.input-profile__error_active {
+    display: block;
+}
