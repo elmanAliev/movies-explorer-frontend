@@ -14,7 +14,7 @@ export const InputProfile = ({ isError, errorText, children, ...rest }) => {
             />
 
             <span
-                className={isError ? 'input-profile__error input-profile__error_active' : 'input-profile__error'}
+                className={errorText ? 'input-profile__error input-profile__error_active' : 'input-profile__error'}
             >
                 {errorText}
             </span>

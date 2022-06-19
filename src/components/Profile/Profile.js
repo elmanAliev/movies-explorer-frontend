@@ -12,12 +12,9 @@ export const Profile = ({ onLogout }) => {
     const { values, handleChange, errors, isValid, resetForm } = useValidationProfile();
     const [serverError, setServerError] = useState('');
 
-    const [nameErrorMessage, setNameErrorMessage] = useState('');
-    const [emailErrorMessage, setEmailErrorMessage] = useState('');
     const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
 
-    // валидация
     useEffect(() => {
         resetForm({ name: currentUser.name, email: currentUser.email });
     }, [currentUser]);
@@ -34,13 +31,6 @@ export const Profile = ({ onLogout }) => {
 
         setIsSubmitDisabled(condition1 || condition2);
     }, [values, currentUser, isValid]);
-
-    useEffect(() => {
-        const msgName = errors.name ? errors.name : '';
-        const msgEmail = errors.email ? errors.email : '';
-        setNameErrorMessage(msgName);
-        setEmailErrorMessage(msgEmail);
-    }, [errors]);
 
 
     // редактирование профиля
@@ -71,8 +61,7 @@ export const Profile = ({ onLogout }) => {
                     pattern="^[а-яА-Яa-zA-Z]([а-яА-Яa-zA-Z]| |-){1,28}[а-яА-Яa-zA-Z]$"
                     value={values.name || ''}
                     onChange={handleChange}
-                    errorText={nameErrorMessage}
-                    isError={!!errors.name}
+                    errorText={errors.name}
                     required
                 >
                     Имя
@@ -84,8 +73,7 @@ export const Profile = ({ onLogout }) => {
                     pattern="^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$"
                     value={values.email || ''}
                     onChange={handleChange}
-                    errorText={emailErrorMessage}
-                    isError={!!errors.email}
+                    errorText={errors.email}
                     required
                 >
                     E-mail
