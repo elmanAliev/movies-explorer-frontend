@@ -51,17 +51,26 @@ function App() {
   }
 
   const handleRegister = (name, email, password) => {
-    api.register({name, email, password})
-        .then((res) => {
-          handleLogin(email, password);
-          setErrRegister('');
-        })
-        .catch((err) => {
-          console.log(err);
-          setErrRegister('Некорректные данные');
-        })
+    api.register({ name, email, password })
+      .then((res) => {
+        handleLogin(email, password);
+        setErrRegister('');
+      })
+      .catch((err) => {
+        console.log(err);
+        setErrRegister('Некорректные данные');
+      })
   }
-  
+
+  const handleLogout = () => {
+    localStorage.removeItem('filteredMovies');
+    localStorage.removeItem('token');
+    localStorage.removeItem('searchString');
+    localStorage.removeItem('isSwitchOn');
+    setCurrentUser({ name: '', email: '', isLoggedIn: false });
+    navigate('/');
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
@@ -69,7 +78,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/movies" element={<MoviePage />} />
           <Route path="/saved-movies" element={<SavedMoviePage />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/profile" element={<ProfilePage onLogout={handleLogout} />} />
           <Route path="/signin" element={<Login onSubmit={handleLogin} error={errLogin} />} />
           <Route path="/signup" element={<Register onSubmit={handleRegister} error={errRegister} />} />
           <Route path="*" element={<NotFoundPage />} />

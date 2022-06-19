@@ -1,6 +1,6 @@
 import './InputProfile.css';
 
-export const InputProfile = ({ type, isError, isDirty, errorText, children, ...rest }) => {
+export const InputProfile = ({ isError, errorText, children, ...rest }) => {
 
     return (
         <div className='input-profile'>
@@ -8,13 +8,13 @@ export const InputProfile = ({ type, isError, isDirty, errorText, children, ...r
                 {children}
             </label>
 
-            <input type={type}
+            <input
                 className='input-profile__input'
                 {...rest}
             />
 
             <span
-                className={`${(isError && isDirty) ? 'input-profile__error input-profile__error_active' : 'input-profile__error'}`}
+                className={isError ? 'input-profile__error input-profile__error_active' : 'input-profile__error'}
             >
                 {errorText}
             </span>
