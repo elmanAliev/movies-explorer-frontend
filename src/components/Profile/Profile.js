@@ -1,7 +1,7 @@
 import './Profile.css';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 import { useEffect, useContext, useState } from 'react';
-import { useValidationProfile } from '../../hooks/useValidationProfile';
+import { useValidation } from '../../hooks/useValidation';
 import { InputProfile } from '../InputProfile/InputProfile';
 import api from '../../utils/MainApi';
 
@@ -9,9 +9,8 @@ import api from '../../utils/MainApi';
 export const Profile = ({ onLogout }) => {
 
     const currentUser = useContext(CurrentUserContext);
-    const { values, handleChange, errors, isValid, resetForm } = useValidationProfile();
+    const { values, handleChange, errors, isValid, resetForm } = useValidation();
     const [serverError, setServerError] = useState('');
-
     const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
 

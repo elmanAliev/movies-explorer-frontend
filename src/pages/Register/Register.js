@@ -3,18 +3,16 @@ import { Logo } from '../../components/Logo/Logo';
 import { Form } from '../../components/Form/Form';
 import { Input } from '../../components/Input/Input';
 import { Submit } from '../../components/Submit/Submit';
-import { useInput } from '../../hooks/useInput';
+import { useValidation } from '../../hooks/useValidation';
 
 
 export const Register = ({ onSubmit, error }) => {
 
-    const name = useInput('', { isEmpty: true });
-    const email = useInput('', { isEmail: true });
-    const password = useInput('', { isEmpty: true });
+    const { values, handleChange, errors, isValid } = useValidation();
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        onSubmit(name.value, email.value, password.value)
+        onSubmit(values.name, values.email, values.password)
     };
 
     return (
@@ -28,43 +26,34 @@ export const Register = ({ onSubmit, error }) => {
             >
                 <Input
                     type="text"
-                    id="name" name="name"
-                    maxLength="30" minLength="2"
-                    placeholder="Имя" required
-                    value={name.value}
-                    onChange={e => name.onChange(e)}
-                    onBlur={e => name.onBlur(e)}
-                    isDirty={name.isDirty}
-                    errorText={name.errorText}
-                    isError={name.isError}
+                    name="name"
+                    pattern="^[а-яА-Яa-zA-Z]([а-яА-Яa-zA-Z]| |-){1,28}[а-яА-Яa-zA-Z]$"
+                    value={values.name || ''}
+                    onChange={handleChange}
+                    errorText={errors.name}
+                    required
                 >
                     Имя
                 </Input>
                 <Input
-                    type="text"
+                    type="email"
                     name="email"
-                    maxLength="30" minLength="2"
-                    placeholder="E-mail" required
-                    value={email.value}
-                    onChange={e => email.onChange(e)}
-                    onBlur={e => email.onBlur(e)}
-                    isDirty={email.isDirty}
-                    errorText={email.errorText}
-                    isError={email.isError}
+                    pattern="^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$"
+                    value={values.email || ''}
+                    onChange={handleChange}
+                    errorText={errors.email}
+                    required
                 >
                     E-mail
                 </Input>
                 <Input
-                    type="text"
+                    type="password"
                     name="password"
-                    maxLength="30" minLength="6"
-                    placeholder="Пароль" required
-                    value={password.value}
-                    onChange={e => password.onChange(e)}
-                    onBlur={e => password.onBlur(e)}
-                    isDirty={password.isDirty}
-                    errorText={password.errorText}
-                    isError={password.isError}
+                    pattern="^[а-яА-Яa-zA-Z]([а-яА-Яa-zA-Z]| |-){1,28}[а-яА-Яa-zA-Z]$"
+                    value={values.password || ''}
+                    onChange={handleChange}
+                    errorText={errors.password}
+                    required
                 >
                     Пароль
                 </Input>
@@ -75,7 +64,7 @@ export const Register = ({ onSubmit, error }) => {
                 linkText={'Войти'}
                 text='Уже зарегистрированы?'
                 onSubmit={handleSubmit}
-                isDisabled={!name.inputValid || !email.inputValid || !password.inputValid}
+                isDisabled={!isValid}
                 error={error}
             />
         </div>

@@ -1,6 +1,6 @@
 import './InputProfile.css';
 
-export const InputProfile = ({ isError, errorText, children, ...rest }) => {
+export const InputProfile = ({ errorText, children, ...rest }) => {
 
     return (
         <div className='input-profile'>
