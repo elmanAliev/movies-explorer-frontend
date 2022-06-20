@@ -57,19 +57,27 @@ class Api {
             .then((res) => this._handleResponse(res));
     }
 
-    getMovies() {
+    getMovies(token) {
         return fetch(`${this._baseUrl}/movies`, {
             method: 'GET',
-            headers: this._headers
+            headers: {
+                'Accept': 'application/json',
+                "Content-Type": "application/json",
+                "authorization": `Bearer ${token}`,
+            },
         })
             .then((res) => this._handleResponse(res));
     }
 
-    postNewCard(card) {
+    postNewCard(movie, token) {
         return fetch(`${this._baseUrl}/movies`, {
             method: 'POST',
-            headers: this._headers,
-            body: JSON.stringify(card),
+            headers: {
+                'Accept': 'application/json',
+                "Content-Type": "application/json",
+                "authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify(movie),
         })
             .then((res) => this._handleResponse(res));
     }

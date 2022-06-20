@@ -13,7 +13,7 @@ export const readMovies = async () => {
                 country: movie.country || '-',
                 director: movie.director || '-',
                 duration: movie.duration || 0,
-                year: movie.year || '2021',
+                year: movie.year || '-',
                 description: movie.description || '-',
                 image: movie.image ? `${MOVIES_URL}${movie.image.url}` : 'https://fakeimg.pl/300/',
                 trailerLink: movie.trailerLink || 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
@@ -59,4 +59,17 @@ export const filterMovies = async (searchString, moviesList) => {
     if (foundMovies.length > 0) return Promise.resolve(foundMovies);
 
     return Promise.reject(NOT_FOUND_ERR);
+}
+
+export const addSaveMark = (moviesList, savedMovies) => {
+    console.log(moviesList)
+    console.log(savedMovies)
+    return moviesList.map((movie) => {
+        
+        const saved = savedMovies.some(savedFilm => savedFilm.movieId === movie.movieId);
+
+        if (saved) movie.savedId = 0
+        
+        return movie
+    })
 }

@@ -7,9 +7,9 @@ export const MoviesSaved = () => {
     return (
         <section className="movies-saved">
             <SearchForm />
-            <MoviesCardList
+            {/* <MoviesCardList
                 savedFilms={true}
-            />
+            /> */}
         </section>
     );
 }

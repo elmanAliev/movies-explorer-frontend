@@ -2,25 +2,48 @@ import { ButtonMore } from '../ButtonMore/ButtonMore';
 import { MoviesCardList } from '../MoviesCardList/MoviesCardList';
 import { SearchForm } from '../SearchForm/SearchForm';
 import './Movies.css';
-import { readMovies, filterMovies } from '../../utils/MoviesSearch'
+import { readMovies, filterMovies, addSaveMark } from '../../utils/MoviesSearch'
 import { useState, useEffect } from 'react';
 import Loader from '../Loader/Loader';
 import { useWindowDimensions } from '../../hooks/useWindowDimensions';
 import { getScreenSettings } from '../../utils/ScreenSettings'
+import api from '../../utils/MainApi'
 
 export const Movies = () => {
 
     const [moviesList, setMoviesList] = useState([]);
-    const [isSwitchOn, setIsSwitchOn] = useState(false);
+    const [showedMovies, setShowedMovies] = useState([]);
+    const [savedMovies, setSavedMovies] = useState([]);
+
     const [isMoviesLoading, setIsMoviesLoading] = useState(false);
+    const [isSwitchOn, setIsSwitchOn] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
     const { width } = useWindowDimensions();
     const [screenSettings, setScreenSettings] = useState({ total: 16, add: 4 });
     const [visibleMoviesNumber, setVisibleMoviesNumber] = useState(0);
     const [isMoreVisible, setIsMoreVisible] = useState(false);
-    const [showedMovies, setShowedMovies] = useState([]);
 
+
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            const token = localStorage.getItem('token');
+            let moviesInStorage = localStorage.getItem('filteredMovies');
+            if(moviesInStorage) moviesInStorage = JSON.parse(moviesInStorage);
+            api.getMovies(token)
+                .then((res) => {
+                    setSavedMovies(res.data)
+                    // console.log(res)
+                    // console.log(res.data)
+                    const sevedMark = addSaveMark(moviesInStorage, res.data)
+                    console.log(sevedMark)
+                })
+                .then((res) => {
+                    
+                })
+                
+        }
+    }, []);
 
     useEffect(() => {
         const switchStorage = JSON.parse(localStorage.getItem('isSwitchOn'));
@@ -103,6 +126,19 @@ export const Movies = () => {
         setVisibleMoviesNumber(newValue);
     }
 
+    const handleLikeClick = (movieId) => {
+        console.log(movieId)
+        console.log(moviesList)
+        const token = localStorage.getItem('token');
+        let result = moviesList.find((movie) => movie.movieId === movieId);
+        console.log(result)
+        api.postNewCard(result, token)
+            .then((res) => {
+
+            })
+            .catch((err) => console.log(err))
+    }
+
 
     return (
         <section className="movies">
@@ -118,6 +154,8 @@ export const Movies = () => {
                 savedFilms={false}
                 moviesList={showedMovies}
                 errorMessage={errorMessage}
+                onClick={handleLikeClick}
+            // isFavorite={isFavorite}
             />
             {isMoreVisible &&
                 <ButtonMore onClick={handleMoreClick} />

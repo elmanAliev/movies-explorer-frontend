@@ -1,13 +1,7 @@
 import './MoviesCard.css';
-import { ButtonLike } from '../ButtonLike/ButtonLike';
-import { ButtonDelete } from '../ButtonDelete/ButtonDelete';
-import { useState } from 'react';
 
-export const MoviesCard = ({ movie, savedFilms }) => {
 
-    const [favoriteCard, setFavoriteCard] = useState(false);
-
-    const addToFavorite = () => setFavoriteCard(!favoriteCard);
+export const MoviesCard = ({ movie, children }) => {
 
     const handleClick = () => window.open(movie.trailerLink, '_blank');
 
@@ -18,10 +12,7 @@ export const MoviesCard = ({ movie, savedFilms }) => {
             </div>
             <div className='card__wrapper'>
                 <p className='card__name'>{movie.nameRU}</p>
-                {savedFilms
-                    ? <ButtonDelete />
-                    : <ButtonLike handleClick={addToFavorite} isFavorite={favoriteCard} />
-                }
+                {children}
             </div>
             <div className='card__duration'>{movie.duration}</div>
         </div>

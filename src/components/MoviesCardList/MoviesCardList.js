@@ -1,8 +1,12 @@
 import './MoviesCardList.css';
 import { MoviesCard } from '../MoviesCard/MoviesCard';
+import { ButtonLike } from '../ButtonLike/ButtonLike';
+import { ButtonDelete } from '../ButtonDelete/ButtonDelete';
+import { useState } from 'react';
 
 
-export const MoviesCardList = ({ savedFilms, moviesList, errorMessage }) => {
+export const MoviesCardList = ({ savedFilms, moviesList, errorMessage, onClick, isFavorite }) => {
+
 
     const getMovies = (moviesList) => {
         if (moviesList.length > 0) {
@@ -10,8 +14,12 @@ export const MoviesCardList = ({ savedFilms, moviesList, errorMessage }) => {
                 return <MoviesCard
                     movie={movie}
                     key={movie.movieId}
-                    savedFilms={savedFilms}
-                />
+                >
+                    {savedFilms
+                    ? <ButtonDelete />
+                    : <ButtonLike isFavorite={isFavorite} movieId={movie.movieId} onClick={onClick}/>
+                }
+                </MoviesCard>
             })
         }
 
