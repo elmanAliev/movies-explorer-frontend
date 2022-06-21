@@ -62,13 +62,15 @@ export const filterMovies = async (searchString, moviesList) => {
 }
 
 export const addSaveMark = (moviesList, savedMovies) => {
-    console.log(moviesList)
-    console.log(savedMovies)
     return moviesList.map((movie) => {
         
         const saved = savedMovies.some(savedFilm => savedFilm.movieId === movie.movieId);
 
-        if (saved) movie.savedId = 0
+        if (saved) {
+            movie.savedId = 0 
+        } else {
+            delete movie['savedId']
+        }
         
         return movie
     })

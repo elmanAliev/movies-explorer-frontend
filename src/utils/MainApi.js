@@ -69,7 +69,7 @@ class Api {
             .then((res) => this._handleResponse(res));
     }
 
-    postNewCard(movie, token) {
+    postNewMovie(movie, token) {
         return fetch(`${this._baseUrl}/movies`, {
             method: 'POST',
             headers: {
@@ -82,10 +82,14 @@ class Api {
             .then((res) => this._handleResponse(res));
     }
 
-    deleteMovie(movieID) {
+    deleteMovie(movieID, token) {
         return fetch(`${this._baseUrl}/movies/${movieID}`, {
             method: 'DELETE',
-            headers: this._headers
+            headers: {
+                'Accept': 'application/json',
+                "Content-Type": "application/json",
+                "authorization": `Bearer ${token}`,
+            },
         })
             .then((res) => this._handleResponse(res));
     }

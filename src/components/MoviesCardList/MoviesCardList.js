@@ -17,7 +17,7 @@ export const MoviesCardList = ({ savedFilms, moviesList, errorMessage, onClick, 
                 >
                     {savedFilms
                     ? <ButtonDelete />
-                    : <ButtonLike isFavorite={isFavorite} movieId={movie.movieId} onClick={onClick}/>
+                    : <ButtonLike isFavorite={isFavorite} movie={movie} movieId={movie.movieId} onClick={onClick}/>
                 }
                 </MoviesCard>
             })
