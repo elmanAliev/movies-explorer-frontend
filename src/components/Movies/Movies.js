@@ -62,8 +62,6 @@ export const Movies = () => {
             api.getMovies(token)
                 .then((res) => {
                     setSavedMovies(res.data);
-                    console.log(currentUser)
-                    console.log(res.data)
                 })
                 .catch((err) => {
                     console.log(`Не удалось загрузить сохраненные фильмы: ${err}`);
@@ -165,6 +163,7 @@ export const Movies = () => {
     return (
         <section className="movies">
             <SearchForm
+                savedFilms={false}
                 onSubmit={handleSearchSubmit}
                 isSwitchOn={isSwitchOn}
                 onSwitchChange={handleSwitchChange}
@@ -177,7 +176,6 @@ export const Movies = () => {
                 moviesList={showedMovies}
                 errorMessage={errorMessage}
                 onClick={handleLikeClick}
-            // isFavorite={isFavorite}
             />
             {isMoreVisible &&
                 <ButtonMore onClick={handleMoreClick} />

@@ -2,13 +2,14 @@ import { FilterCheckbox } from '../FilterCheckbox/FilterCheckbox';
 import './SearchForm.css';
 import { useState, useEffect } from 'react';
 
-export const SearchForm = ({ onSubmit, isSwitchOn, onSwitchChange }) => {
+export const SearchForm = ({ savedFilms, onSubmit, isSwitchOn, onSwitchChange }) => {
 
     const [error, setError] = useState(false)
     const [searchString, setSearchString] = useState('')
     const errorClassName = error ? 'search__error search__error_active' : 'search__error';
 
     useEffect(() => {
+        if (savedFilms) return
         const stringStorage = JSON.parse(localStorage.getItem('searchString'));
         if (stringStorage) {
             setSearchString(stringStorage);
