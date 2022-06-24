@@ -44,7 +44,7 @@ export const Movies = () => {
         localStorage.setItem('isSwitchOn', JSON.stringify(isSwitchOn));
 
         if (isSwitchOn) {
-            const filterMovies = moviesList.filter((movie) => movie.duration < 90);
+            const filterMovies = moviesList.filter((movie) => movie.duration < 40);
             setShowedMovies(filterMovies)
         } else {
             setShowedMovies(markedMovies)
@@ -61,6 +61,7 @@ export const Movies = () => {
         if (token) {
             api.getMovies(token)
                 .then((res) => {
+                    console.log(res)
                     setSavedMovies(res.data);
                 })
                 .catch((err) => {
@@ -112,7 +113,8 @@ export const Movies = () => {
         const token = localStorage.getItem('token');
         let likedMovie = moviesList.find((movie) => movie.movieId === movieId);
         let dislikedMovie = savedMovies.find((movie) => movie.movieId === movieId);
-        let newSavedMovies = savedMovies.filter((movie) => movie.movieId !== movieId);
+
+        console.log(likedMovie)
 
         if (likedMovie.savedId !== 0) {
 
@@ -123,7 +125,7 @@ export const Movies = () => {
         } else {
 
             api.deleteMovie(dislikedMovie._id, token)
-                .then((res) => setSavedMovies(newSavedMovies))
+                .then((res) => setSavedMovies(prev => prev.filter(c => c.movieId !== movieId)))
                 .catch((err) => console.log(err))
         }
     }

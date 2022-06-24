@@ -6,19 +6,19 @@ import { getAllMovies } from './MoviesApi';
 export const readMovies = async () => {
     try {
         const movies = await getAllMovies();
-
+        
         const moviesList = movies.map(movie => {
             return {
                 movieId: movie.id,
-                country: movie.country || '-',
-                director: movie.director || '-',
+                country: movie.country || 'country',
+                director: movie.director || 'director',
                 duration: movie.duration || 0,
-                year: movie.year || '-',
+                year: movie.year || '2022',
                 description: movie.description || '-',
                 image: movie.image ? `${MOVIES_URL}${movie.image.url}` : 'https://fakeimg.pl/300/',
                 trailerLink: movie.trailerLink || 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-                nameRU: movie.nameRU || '',
-                nameEN: movie.nameEN || '',
+                nameRU: movie.nameRU || 'nameRU',
+                nameEN: movie.nameEN || 'nameEN',
                 thumbnail: movie.image ? `${MOVIES_URL}${movie.image.formats.thumbnail.url}` : 'https://fakeimg.pl/300/',
             };
         });

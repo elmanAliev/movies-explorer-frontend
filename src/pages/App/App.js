@@ -9,6 +9,7 @@ import { Login } from '../Login/Login';
 import { Register } from '../Register/Register';
 import { NotFoundPage } from '../NotFoundPage/NotFoundPage';
 import { ProtectedRoute } from '../../components/ProtectedRoute'
+import Loader from '../../components/Loader/Loader'
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 import { useEffect, useState } from 'react';
 import api from '../../utils/MainApi';
@@ -17,25 +18,20 @@ function App() {
 
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState({ isLoggedIn: false });
+  const [isLoading, setIsLoading] = useState(false);
 
   const [errRegister, setErrRegister] = useState('');
   const [errLogin, setErrLogin] = useState('');
 
+
   useEffect(() => {
     if (localStorage.getItem('token')) {
       const token = localStorage.getItem('token');
-      currentUser.isLoggedIn = true;
-      console.log(currentUser)
+
       api.getUserInfo(token)
-        .then((userInfoObject) => {
-          
-          setCurrentUser(prev => {
-            return { ...prev, ...userInfoObject.data }
-          })
-        })
-        .catch(err => {
-          console.log(`'Переданный токен некорректен.' ${err}`);
-        });
+        .then(user => setCurrentUser(prev => ({ ...prev, ...user.data, isLoggedIn: true })))
+        .catch(err => console.log(`'Переданный токен некорректен.' ${err}`))
+        .finally(() => setIsLoading(true))
     }
   }, [currentUser.isLoggedIn]);
 
@@ -73,6 +69,13 @@ function App() {
     setCurrentUser({ name: '', email: '', isLoggedIn: false });
     navigate('/');
   }
+
+  if (!isLoading)
+    return (
+      <div className='app__loader'>
+        <Loader />
+      </div>
+    );
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

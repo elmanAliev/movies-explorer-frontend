@@ -5,6 +5,14 @@ export const MoviesCard = ({ movie, children }) => {
 
     const handleClick = () => window.open(movie.trailerLink, '_blank');
 
+    const getMovieDuration = (duration) => {
+        const hours = Math.floor(duration / 60);
+        const hoursStr = hours > 0 ? `${hours}ч` : '';
+        const minutes = duration - hours * 60;
+        const minutesStr = minutes > 0 ? `${minutes}м` : '';
+        return hoursStr + minutesStr;
+      };
+
     return (
         <div className='card'>
             <div className='card__img-conteiner'>
@@ -14,7 +22,7 @@ export const MoviesCard = ({ movie, children }) => {
                 <p className='card__name'>{movie.nameRU}</p>
                 {children}
             </div>
-            <div className='card__duration'>{movie.duration}</div>
+            <div className='card__duration'>{getMovieDuration(movie.duration)}</div>
         </div>
     );
 }

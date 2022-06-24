@@ -2,10 +2,9 @@ import './MoviesCardList.css';
 import { MoviesCard } from '../MoviesCard/MoviesCard';
 import { ButtonLike } from '../ButtonLike/ButtonLike';
 import { ButtonDelete } from '../ButtonDelete/ButtonDelete';
-import { useState } from 'react';
 
 
-export const MoviesCardList = ({ savedFilms, moviesList, errorMessage, onClick, isFavorite }) => {
+export const MoviesCardList = ({ savedFilms, moviesList, errorMessage, onClick }) => {
 
 
     const getMovies = (moviesList) => {
@@ -16,8 +15,8 @@ export const MoviesCardList = ({ savedFilms, moviesList, errorMessage, onClick, 
                     key={movie.movieId}
                 >
                     {savedFilms
-                    ? <ButtonDelete />
-                    : <ButtonLike isFavorite={isFavorite} movie={movie} movieId={movie.movieId} onClick={onClick}/>
+                    ? <ButtonDelete onClick={onClick} movie={movie} />
+                    : <ButtonLike movie={movie} movieId={movie.movieId} onClick={onClick}/>
                 }
                 </MoviesCard>
             })

@@ -4,27 +4,22 @@ import { useState, useEffect } from 'react';
 
 export const SearchForm = ({ savedFilms, onSubmit, isSwitchOn, onSwitchChange }) => {
 
-    const [error, setError] = useState(false)
-    const [searchString, setSearchString] = useState('')
-    const errorClassName = error ? 'search__error search__error_active' : 'search__error';
+    const [error, setError] = useState(false);
+    const [searchString, setSearchString] = useState('');
 
     useEffect(() => {
         if (savedFilms) return
         const stringStorage = JSON.parse(localStorage.getItem('searchString'));
-        if (stringStorage) {
-            setSearchString(stringStorage);
-        }
+        if (stringStorage) setSearchString(stringStorage);
     }, []);
+
+    useEffect(() => {
+        if (searchString.length > 0) setError(false)
+    }, [searchString]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if(searchString.length < 1) {
-            setError(true)
-        } else {
-            setError(false);
-            onSubmit(searchString);
-        }
-        
+        (searchString.length < 1) ? setError(true) : onSubmit(searchString);
     }
 
 
@@ -43,14 +38,12 @@ export const SearchForm = ({ savedFilms, onSubmit, isSwitchOn, onSwitchChange })
                     <button
                         className='search__button transition opacity'
                     />
-                    <span
-                        className={errorClassName}
-                    >
-                        Нужно ввести ключевое слово
-                    </span>
-                    
+                    {
+                        error && <span className='search__error'>
+                            Нужно ввести ключевое слово
+                        </span>
+                    }
                 </div>
-
                 <div className='search__checkbox'>
                     <p className='search__checkbox-name'>
                         Короткометражки
@@ -60,7 +53,6 @@ export const SearchForm = ({ savedFilms, onSubmit, isSwitchOn, onSwitchChange })
                         onChange={onSwitchChange}
                     />
                 </div>
-
             </form>
             <div className='search__line' />
         </div>
