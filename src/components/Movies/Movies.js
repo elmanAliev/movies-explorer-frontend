@@ -113,14 +113,15 @@ export const Movies = () => {
     useEffect(() => {
         localStorage.setItem('isSwitchOn', JSON.stringify(isSwitchOn));
         const fromStorage = localStorage.getItem('filteredMovies');
-        
-        const found = JSON.parse(fromStorage);
+        if (fromStorage) {
+            const found = JSON.parse(fromStorage);
 
-        if (isSwitchOn) {
-            const filterMovies = moviesList.filter((movie) => movie.duration < 40);
-            setMoviesList([...filterMovies])
-        } else {
-            setMoviesList([...found])
+            if (isSwitchOn) {
+                const filterMovies = moviesList.filter((movie) => movie.duration < 40);
+                setMoviesList([...filterMovies])
+            } else {
+                setMoviesList([...found])
+            }
         }
     }, [isSwitchOn]);
 

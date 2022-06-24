@@ -32,7 +32,10 @@ function App() {
         .then(user => setCurrentUser(prev => ({ ...prev, ...user.data, isLoggedIn: true })))
         .catch(err => console.log(`'Переданный токен некорректен.' ${err}`))
         .finally(() => setIsLoading(true))
+    } else {
+      setIsLoading(true)
     }
+    
   }, [currentUser.isLoggedIn]);
 
   const handleLogin = (email, password) => {
