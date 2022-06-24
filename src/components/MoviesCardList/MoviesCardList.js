@@ -6,7 +6,6 @@ import { ButtonDelete } from '../ButtonDelete/ButtonDelete';
 
 export const MoviesCardList = ({ savedFilms, moviesList, errorMessage, onClick }) => {
 
-
     const getMovies = (moviesList) => {
         if (moviesList.length > 0) {
             return moviesList.map((movie) => {

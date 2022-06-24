@@ -1,5 +1,5 @@
 import './Movies.css';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import api from '../../utils/MainApi'
 import { ButtonMore } from '../ButtonMore/ButtonMore';
 import { MoviesCardList } from '../MoviesCardList/MoviesCardList';
@@ -8,12 +8,9 @@ import { useWindowDimensions } from '../../hooks/useWindowDimensions';
 import { getScreenSettings } from '../../utils/ScreenSettings'
 import { readMovies, filterMovies, addSaveMark } from '../../utils/MoviesSearch'
 import Loader from '../Loader/Loader';
-import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 
 export const Movies = () => {
-
-    const currentUser = useContext(CurrentUserContext);
 
     const [moviesList, setMoviesList] = useState([]);
     const [showedMovies, setShowedMovies] = useState([]);
@@ -39,21 +36,6 @@ export const Movies = () => {
     }, []);
 
 
-    // управление короткометражками
-    useEffect(() => {
-        localStorage.setItem('isSwitchOn', JSON.stringify(isSwitchOn));
-
-        if (isSwitchOn) {
-            const filterMovies = moviesList.filter((movie) => movie.duration < 40);
-            setShowedMovies(filterMovies)
-        } else {
-            setShowedMovies(markedMovies)
-        }
-    }, [isSwitchOn]);
-
-    const handleSwitchChange = () => setIsSwitchOn((prev) => !prev);
-
-
     // получаем сохраненные фильмы
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -61,7 +43,6 @@ export const Movies = () => {
         if (token) {
             api.getMovies(token)
                 .then((res) => {
-                    console.log(res)
                     setSavedMovies(res.data);
                 })
                 .catch((err) => {
@@ -114,8 +95,6 @@ export const Movies = () => {
         let likedMovie = moviesList.find((movie) => movie.movieId === movieId);
         let dislikedMovie = savedMovies.find((movie) => movie.movieId === movieId);
 
-        console.log(likedMovie)
-
         if (likedMovie.savedId !== 0) {
 
             api.postNewMovie(likedMovie, token)
@@ -130,6 +109,23 @@ export const Movies = () => {
         }
     }
 
+    // управление короткометражками
+    useEffect(() => {
+        localStorage.setItem('isSwitchOn', JSON.stringify(isSwitchOn));
+        const fromStorage = localStorage.getItem('filteredMovies');
+        
+        const found = JSON.parse(fromStorage);
+
+        if (isSwitchOn) {
+            const filterMovies = moviesList.filter((movie) => movie.duration < 40);
+            setMoviesList([...filterMovies])
+        } else {
+            setMoviesList([...found])
+        }
+    }, [isSwitchOn]);
+
+    const handleSwitchChange = () => setIsSwitchOn((prev) => !prev);
+
 
     // управление отображением колличества фильмов
     useEffect(() => {
@@ -137,14 +133,14 @@ export const Movies = () => {
     }, [width]);
 
     useEffect(() => {
-        if (moviesList.length <= screenSettings.total) {
-            setVisibleMoviesNumber(moviesList.length);
+        if (markedMovies.length <= screenSettings.total) {
+            setVisibleMoviesNumber(markedMovies.length);
             setIsMoreVisible(false);
         } else {
             setVisibleMoviesNumber(screenSettings.total)
             setIsMoreVisible(true);
         }
-    }, [moviesList, screenSettings]);
+    }, [markedMovies, screenSettings]);
 
     useEffect(() => {
         setShowedMovies(markedMovies.slice(0, visibleMoviesNumber));
