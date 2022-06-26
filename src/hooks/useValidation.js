@@ -1,39 +1,26 @@
-import { useState, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 
-export const useValidation = (value, validations) => {
+export function useValidation() {
+  const [values, setValues] = useState({});
+  const [errors, setErrors] = useState({});
+  const [isValid, setIsValid] = useState(false);
 
-    const [isError, setIsError] = useState(false);
-    const [inputValid, setInputValid] = useState(false);
-    const [errorText, setErrorText] = useState('');
+  const handleChange = (event) => {
+    const target = event.target;
+    const { name, value } = target;
+    setValues({...values, [name]: value});
+    setErrors({...errors, [name]: target.validationMessage });
+    setIsValid(target.closest("form").checkValidity());
+  };
 
-    useEffect(() => {
-        for (const validation in validations) {
-            switch (validation) {
+  const resetForm = useCallback(
+    (newValues = {}, newErrors = {}, newIsValid = false) => {
+      setValues(newValues);
+      setErrors(newErrors);
+      setIsValid(newIsValid);
+    },
+    [setValues, setErrors, setIsValid]
+  );
 
-                case 'isEmpty':
-                    value ? setIsError(false) : setIsError(true);
-                    setErrorText('Поле не должно быть пустым')
-                    break;
-
-                case 'isEmail':
-                    const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-                    re.test(String(value).toLowerCase()) ? setIsError(false) : setIsError(true);
-                    setErrorText('Некорректный email')
-                    break;
-
-                default:
-                    break;
-            }
-        }
-    }, [value]);
-
-    useEffect(() => {
-        isError ? setInputValid(false) : setInputValid(true)
-    }, [isError]);
-
-    return {
-        isError,
-        inputValid,
-        errorText,
-    }
+  return { values, handleChange, errors, isValid, resetForm };
 }

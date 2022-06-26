@@ -1,6 +1,6 @@
 import './Input.css';
 
-export const Input = ({ type, isError, isDirty, errorText, children, ...rest}) => {
+export const Input = ({ errorText, children, ...rest }) => {
 
     return (
         <div className='input'>
@@ -8,13 +8,13 @@ export const Input = ({ type, isError, isDirty, errorText, children, ...rest}) =
                 {children}
             </label>
 
-            <input type={type}
+            <input
                 className='input__item'
                 {...rest}
             />
 
             <span
-                className={`${(isError && isDirty) ? 'input__error input__error_active' : 'input__error'}`}
+                className={errorText ? 'input__error input__error_active' : 'input__error'}
             >
                 {errorText}
             </span>

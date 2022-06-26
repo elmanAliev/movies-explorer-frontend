@@ -7,7 +7,7 @@ export const MoviePage = () => {
 
     return (
         <>
-           <Header>
+            <Header>
                 <Navigation />
             </Header>
             <Movies />

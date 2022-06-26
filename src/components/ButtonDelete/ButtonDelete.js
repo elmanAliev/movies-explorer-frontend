@@ -1,8 +1,11 @@
 import './ButtonDelete.css';
 
-export const ButtonDelete = () => {
+export const ButtonDelete = ({ onClick, movie }) => {
 
+    const handleClick = () => onClick(movie._id);
+
+    
     return (
-        <button className='batton-delete transition opacity' type='button'></button>
+        <button onClick={handleClick} className='batton-delete transition opacity' type='button'></button>
     );
 }

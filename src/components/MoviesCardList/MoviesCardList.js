@@ -1,25 +1,34 @@
 import './MoviesCardList.css';
-import { cards } from '../../utils/cardsArray'
 import { MoviesCard } from '../MoviesCard/MoviesCard';
+import { ButtonLike } from '../ButtonLike/ButtonLike';
+import { ButtonDelete } from '../ButtonDelete/ButtonDelete';
 
 
-export const MoviesCardList = ({ savedFilms }) => {
+export const MoviesCardList = ({ savedFilms, moviesList, errorMessage, onClick }) => {
 
-    const getMovies = (movies) => {
-        return movies.map((card, i) => {
-            return <MoviesCard
-                img={card.img}
-                name={card.name}
-                duration={card.duration}
-                key={i}
-                savedFilms={savedFilms}
-            />
-        })
+    const getMovies = (moviesList) => {
+        if (moviesList.length > 0) {
+            return moviesList.map((movie) => {
+                return <MoviesCard
+                    movie={movie}
+                    key={movie.movieId}
+                >
+                    {savedFilms
+                    ? <ButtonDelete onClick={onClick} movie={movie} />
+                    : <ButtonLike movie={movie} movieId={movie.movieId} onClick={onClick}/>
+                }
+                </MoviesCard>
+            })
+        }
+
+        return (
+            <p className="movies-card-list__err">{errorMessage}</p>
+        )
     }
 
     return (
         <section className="movies-card-list">
-            {getMovies(cards)}
+            {getMovies(moviesList)}
         </section>
     );
 }

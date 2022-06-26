@@ -4,6 +4,19 @@
     grid-template-columns: repeat(4, 1fr);
     grid-column-gap: 20px;
     grid-row-gap: 38px;
+    min-height: 190px;
+    position: relative;
+}
+
+.movies-card-list__err {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 100%;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 @media screen and (max-width: 1200px) {
