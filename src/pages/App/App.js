@@ -9,6 +9,7 @@ import { Login } from '../Login/Login';
 import { Register } from '../Register/Register';
 import { NotFoundPage } from '../NotFoundPage/NotFoundPage';
 import { ProtectedRoute } from '../../components/ProtectedRoute'
+import { AuthRoute } from '../../components/AuthRoute'
 import Loader from '../../components/Loader/Loader'
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 import { useEffect, useState } from 'react';
@@ -35,7 +36,7 @@ function App() {
     } else {
       setIsLoading(true)
     }
-    
+
   }, [currentUser.isLoggedIn]);
 
   const handleLogin = (email, password) => {
@@ -85,8 +86,22 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/signin" element={<Login onSubmit={handleLogin} error={errLogin} />} />
-          <Route path="/signup" element={<Register onSubmit={handleRegister} error={errRegister} />} />
+          <Route
+            path="/signin"
+            element={
+              <AuthRoute>
+                <Login onSubmit={handleLogin} error={errLogin} />
+              </AuthRoute>
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <AuthRoute>
+                <Register onSubmit={handleRegister} error={errRegister} />
+              </AuthRoute>
+            }
+          />
           <Route
             path="/movies"
             element={

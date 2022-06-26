@@ -11,12 +11,6 @@ export const MoviesSaved = () => {
     const [isSwitchOn, setIsSwitchOn] = useState(false);
     const [showedMovies, setShowedMovies] = useState([]);
 
-    // достаем из LocalStorage данные
-    useEffect(() => {
-        const switchStorage = JSON.parse(localStorage.getItem('isSwitchOn'));
-        if (switchStorage) setIsSwitchOn(switchStorage);
-    }, []);
-
 
     // получаем сохраненные фильмы
     useEffect(() => {
@@ -32,7 +26,6 @@ export const MoviesSaved = () => {
 
     // управление короткометражками
     useEffect(() => {
-        localStorage.setItem('isSwitchOn', JSON.stringify(isSwitchOn));
 
         if (isSwitchOn) {
             const filteredMovies = moviesList.filter((movie) => movie.duration < 40);
